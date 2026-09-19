@@ -1,0 +1,652 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Tema Claro Fixo */
+:root {
+    --bg-main: #f0f2f5;
+    --bg-medium: #ffffff;
+    --border-color: #dee2e6;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --accent-primary: #007bff;
+    --accent-secondary: #0056b3;
+    --color-danger: #d9534f;
+    --color-success: #198754;
+    --color-warning: #f0ad4e;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+        radial-gradient(circle at top left, rgba(0, 123, 255, 0.18), transparent 30%),
+        linear-gradient(135deg, #eef5ff 0%, #f8f9fb 35%, #eef3f7 100%);
+}
+
+.login-box {
+    width: min(420px, 100%);
+    padding: 36px 28px 30px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 24px;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(8px);
+}
+
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.brand-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+    color: #fff;
+    font-size: 1.8rem;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.28);
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.login-brand h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.2;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form label {
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.login-form .input-group input {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    margin: 0;
+    border-radius: 12px;
+    border: 1px solid #dbe3ef;
+    background: #f8fafc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.login-form .input-group input:focus {
+    border-color: var(--accent-primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.login-form button {
+    margin-top: 8px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    box-shadow: 0 12px 20px rgba(37, 99, 235, 0.25);
+}
+
+.login-form button:hover {
+    background: linear-gradient(135deg, #1e40af, #1d4ed8);
+}
+
+.error-message {
+    min-height: 20px;
+    margin: 12px 0 0;
+    color: #dc2626;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1, h2 {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    font-weight: 500;
+}
+
+.card {
+    background: var(--bg-medium);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+input, select, button, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    background-color: var(--bg-medium);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+button {
+    background-color: var(--accent-secondary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-primary);
+}
+
+button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.alertas {
+    background-color: rgba(210, 153, 34, 0.1);
+    border: 1px solid var(--color-warning);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alertas-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.alertas-heading h2 {
+    margin-bottom: 0;
+}
+
+.alertas-badge, .section-kicker {
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.alertas-badge {
+    border: 1px solid var(--color-warning);
+    border-radius: 999px;
+    color: var(--color-warning);
+    padding: 5px 9px;
+    white-space: nowrap;
+}
+
+.alerta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    padding: 10px 12px;
+    border-left: 3px solid currentColor;
+    background: rgba(255, 255, 255, 0.6);
+    list-style: none;
+}
+
+.alerta-item > i { font-size: 1rem; }
+.alerta-item span { display: flex; flex: 1; flex-direction: column; }
+.alerta-item small { font-weight: 400; color: var(--text-secondary); }
+.alerta-item time { font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+.alerta-vazio { list-style: none; color: var(--color-success); padding: 10px 0; }
+
+#relatorio-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.report-metric {
+    padding: 12px;
+    border-left: 3px solid var(--accent-primary);
+    background: rgba(0, 123, 255, 0.06);
+}
+
+.report-metric span, .report-metric strong { display: block; }
+.report-metric span { color: var(--text-secondary); font-size: 0.78rem; }
+.report-metric strong { margin-top: 3px; font-size: 1.05rem; }
+.report-actions { display: flex; gap: 10px; }
+.report-actions button { width: auto; padding: 10px 16px; }
+.report-actions i { margin-right: 5px; }
+
+.alertas h2 {
+    color: var(--color-warning);
+    margin-top: 0;
+    border: none;
+}
+
+.alerta-item.vencido {
+    color: var(--color-danger);
+    font-weight: bold;
+}
+
+.alerta-item.proximo {
+    color: var(--color-warning);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-medium);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: var(--text-secondary);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: var(--text-primary);
+}
+
+.status-paga { color: var(--color-success); font-weight: bold; }
+.status-pendente { color: var(--color-warning); }
+.status-atrasada { color: var(--color-danger); font-weight: bold; }
+
+/* Estilos para o menu e navegação por páginas */
+header {
+    background-color: var(--bg-medium);
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-bottom-color 0.3s;
+}
+
+.menu a.active {
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
+}
+
+.menu a:hover {
+    color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    header h1 {
+        font-size: 1.35rem;
+        margin: 0 0 8px;
+    }
+
+    .menu {
+        display: none;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 8px;
+        padding-top: 8px;
+    }
+
+    .menu.menu-aberto {
+        display: grid;
+    }
+
+    .menu-toggle {
+        display: flex;
+        width: 44px;
+        height: 40px;
+        margin: 0 0 8px auto;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-size: 1.1rem;
+    }
+
+    .alertas-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .alerta-item {
+        align-items: flex-start;
+    }
+
+    .alerta-item time {
+        margin-left: auto;
+        text-align: right;
+    }
+
+    #relatorio-resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .report-actions {
+        flex-direction: column;
+    }
+
+    .report-actions button {
+        width: 100%;
+    }
+
+    .menu a {
+        min-height: 42px;
+        padding: 8px 6px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.82rem;
+    }
+
+    .menu a.active {
+        border-color: var(--accent-primary);
+        background-color: rgba(0, 123, 255, 0.08);
+    }
+}
+
+.page {
+    display: none; /* Esconde todas as páginas por padrão */
+}
+
+.page.active {
+    display: block; /* Mostra apenas a página ativa */
+}
+
+/* Estilos para os cards de KPI */
+.kpi-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.kpi-card {
+    background: var(--bg-medium);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    min-height: 148px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--accent-primary);
+}
+
+.kpi-card h3 {
+    margin: 10px 0 5px 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    border: none;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kpi-card p {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.kpi-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* Estilos para os gráficos */
+.chart-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Estilo para destacar empréstimos com parcelas atrasadas */
+.emprestimo-atrasado {
+    background-color: rgba(248, 81, 73, 0.1);
+}
+
+/* Estilos para os filtros de relatório */
+.filtro-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+#btn-limpar-filtros {
+    background-color: #6c757d;
+}
+
+#btn-limpar-filtros:hover {
+    background-color: #5a6268;
+}
+
+/* Estilo para botões com ícones */
+.btn-icon {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-edit:hover,
+.btn-quitar:hover {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--color-success);
+}
+
+.btn-edit:hover {
+    background-color: rgba(88, 166, 255, 0.1);
+    color: var(--accent-primary);
+}
+
+.btn-delete:hover,
+.btn-delete:hover {
+    background-color: rgba(248, 81, 73, 0.1);
+    color: var(--color-danger);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px; /* Espaço entre os botões */
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#tabela-despesas .btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+#tabela-despesas .btn-quitar {
+    color: var(--color-success);
+}
+
+#tabela-despesas .btn-delete {
+    color: var(--color-danger);
+}
+
+.pago-em {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.modal-pagamento p {
+    color: var(--text-secondary);
+    margin-top: -4px;
+}
+
+/* Estilo para agrupar campos de formulário lado a lado */
+.form-group-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Estilo para as legendas dos formulários */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    font-weight: 500;
+}

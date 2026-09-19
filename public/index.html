@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Empréstimos</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Adicionando a biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Tela de Login -->
+    <div id="login-container" class="login-container">
+        <div class="login-box">
+            <div class="login-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-cash-register"></i>
+                </div>
+                <div>
+                    <span class="eyebrow">ACESSO RESTRITO</span>
+                    <h2>Gestão de Empréstimos</h2>
+                </div>
+            </div>
+
+            <form id="form-login" class="login-form">
+                <label for="login-username">Usuário</label>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="login-username" placeholder="Digite seu usuário" required>
+                </div>
+
+                <label for="login-password">Senha</label>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit">Entrar no sistema</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-container" class="container" style="display: none;">
+        <header>
+            <h1>Gestão de Empréstimos</h1>
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="menu" id="menu-principal">
+                <a href="#" data-page="dashboard" class="active">Dashboard</a>
+                <a href="#" data-page="clientes">Clientes</a>
+                <a href="#" data-page="emprestimos">Empréstimos</a>
+                <a href="#" data-page="despesas">Contas</a>
+                <a href="#" data-page="relatorios">Relatórios</a>
+                <a href="#" id="logout-button">Sair <i class="fas fa-sign-out-alt"></i></a>
+            </nav>
+        </header>
+
+        <main id="pages">
+            <!-- Página: Dashboard -->
+            <section id="page-dashboard" class="page active">
+                <!-- Cards de KPI -->
+                <div class="kpi-container">
+                    <div class="kpi-card" data-page="clientes" role="button" tabindex="0">
+                        <i class="fas fa-users kpi-icon" style="color: #3498db;"></i>
+                        <h3>Clientes Ativos</h3>
+                        <p id="kpi-clientes">0</p>
+                    </div>
+                    <div class="kpi-card" data-page="emprestimos" role="button" tabindex="0">
+                        <i class="fas fa-hand-holding-dollar kpi-icon" style="color: #2ecc71;"></i>
+                        <h3>Empréstimos Ativos</h3>
+                        <p id="kpi-emprestimos">0</p>
+                    </div>
+                    <div class="kpi-card" data-page="emprestimos" role="button" tabindex="0">
+                        <i class="fas fa-wallet kpi-icon" style="color: #f1c40f;"></i>
+                        <h3>Valor Total Emprestado</h3>
+                        <p id="kpi-valor-total">R$ 0,00</p>
+                    </div>
+                    <div class="kpi-card" data-page="emprestimos" role="button" tabindex="0">
+                        <i class="fas fa-percent kpi-icon" style="color: #9b59b6;"></i>
+                        <h3>Juros a Receber</h3>
+                        <p id="kpi-juros-receber">R$ 0,00</p>
+                    </div>
+                    <div class="kpi-card" data-page="emprestimos" role="button" tabindex="0">
+                        <i class="fas fa-money-bill-wave kpi-icon" style="color: #1abc9c;"></i>
+                        <h3>Total a Receber</h3>
+                        <p id="kpi-total-receber">R$ 0,00</p>
+                    </div>
+                    <div class="kpi-card" data-page="emprestimos" role="button" tabindex="0">
+                        <i class="fas fa-calendar-times kpi-icon" style="color: #e74c3c;"></i>
+                        <h3>Empréstimos Atrasados</h3>
+                        <p id="kpi-emprestimos-atrasados">0</p>
+                    </div>
+                </div>
+
+                <div id="alertas-vencimento" class="alertas">
+                    <div class="alertas-heading">
+                        <div>
+                            <span class="section-kicker">ACOMPANHAMENTO</span>
+                            <h2><i class="fas fa-bell"></i> Alertas de vencimento</h2>
+                        </div>
+                        <span class="alertas-badge">Próximos 7 dias</span>
+                    </div>
+                    <ul id="lista-alertas"></ul>
+                </div>
+
+                <div class="chart-container">
+                    <div class="card chart-card">
+                        <h2>Empréstimos por Mês</h2>
+                        <canvas id="emprestimosChart"></canvas>
+                    </div>
+                    <div class="card chart-card">
+                        <h2>Status dos Empréstimos</h2>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Página: Clientes -->
+            <section id="page-clientes" class="page">
+                <div class="card">
+                    <h2>Cadastrar Novo Cliente</h2>
+                    <form id="form-cliente">
+                        <input type="text" id="cliente-nome" placeholder="Nome do Cliente" required>
+                        <input type="text" id="cliente-telefone" placeholder="Telefone">
+                        <input type="text" id="cliente-cpf" placeholder="CPF">
+                        <input type="text" id="cliente-endereco" placeholder="Endereço">
+                        <textarea id="cliente-observacoes" placeholder="Observações..."></textarea>
+                        <button type="submit">Salvar Cliente</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Clientes Cadastrados</h2>
+                    <table id="tabela-clientes">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Página: Empréstimos -->
+            <section id="page-emprestimos" class="page">
+                <div class="card">
+                    <h2>Registrar Novo Empréstimo</h2>
+                    <form id="form-emprestimo">
+                        <select id="emprestimo-cliente" required></select>
+                        <input type="text" id="emprestimo-descricao" placeholder="Descrição (Ex: Dinheiro, Objeto)" required>
+                        <div class="form-group-inline">
+                            <div>
+                                <label for="emprestimo-data">Data Inicial do Empréstimo</label>
+                                <input type="date" id="emprestimo-data" required>
+                            </div>
+                            <div>
+                                <label for="emprestimo-vencimento">Data Final do Empréstimo</label>
+                                <input type="date" id="emprestimo-vencimento" required>
+                            </div>
+                        </div>
+                        <input type="number" id="emprestimo-valor" placeholder="Valor Principal (R$)" step="0.01" required>
+                        <input type="number" id="emprestimo-juros" placeholder="Juros do Empréstimo (%)" step="0.1">
+                        <input type="number" id="emprestimo-juros-diario" placeholder="Juros Diário por Atraso (%)" step="0.1">
+                        <button type="submit">Registrar Empréstimo</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Empréstimos Ativos</h2>
+                    <table id="tabela-emprestimos">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Descrição</th>
+                                <th>Valor Principal</th>
+                                <th>Valor Final</th>
+                                <th>Data</th>
+                                <th>Vencimento</th>
+                                <th>Juros Empr. (%)</th>
+                                <th>Status</th>
+                                <th>Dias Atraso</th>
+                                <th>Juros Diário (%)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Página: Relatórios -->
+            <section id="page-relatorios" class="page">
+                <div class="card">
+                    <span class="section-kicker">ANÁLISE DA CARTEIRA</span>
+                    <h2><i class="fas fa-chart-line"></i> Relatório de empréstimos</h2>
+                    <form id="form-relatorio">
+                        <div class="filtro-container">
+                            <select id="relatorio-cliente">
+                                <option value="">Todos os Clientes</option>
+                            </select>
+                            <input type="month" id="relatorio-mes" title="Filtrar por mês">
+                            <input type="date" id="relatorio-dia" title="Filtrar por dia específico">
+                        </div>
+                        <div class="report-actions">
+                            <button type="submit"><i class="fas fa-filter"></i> Gerar relatório</button>
+                            <button type="button" id="btn-limpar-filtros"><i class="fas fa-rotate-left"></i> Limpar filtros</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="resultado-relatorio" class="card" style="display: none;">
+                    <h2 id="relatorio-titulo">Resultado</h2>
+                    <div id="relatorio-resumo"></div>
+                    <table id="tabela-relatorio">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Valor</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Página: Contas e Despesas -->
+            <section id="page-despesas" class="page">
+                <div class="card">
+                    <h2>Lançar Nova Despesa</h2>
+                    <form id="form-despesa">
+                        <input type="text" id="despesa-descricao" placeholder="Descrição (Ex: Conta de Luz)" required>
+                        <input type="number" id="despesa-valor" placeholder="Valor (R$)" step="0.01" required>
+                        <select id="despesa-tipo" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="Água">Água</option>
+                            <option value="Luz">Luz</option>
+                            <option value="Aluguel">Aluguel</option>
+                            <option value="Internet">Internet</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Fornecedor">Fornecedor</option>
+                            <option value="Impostos">Impostos</option>
+                            <option value="Outra">Outra</option>
+                        </select>
+                        <input type="date" id="despesa-vencimento" required title="Data de Vencimento">
+                        <button type="submit">Salvar Despesa</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Minhas Contas</h2>
+                    <table id="tabela-despesas">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Vencimento</th>
+                                <th>Status</th>
+                                <th>Forma de Pagamento</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para ver parcelas -->
+    <div id="modal-parcelas" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-titulo"></h2>
+            <table id="tabela-parcelas">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Valor</th>
+                        <th>Vencimento</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Cliente -->
+    <div id="modal-editar-cliente" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Cliente</h2>
+            <form id="form-editar-cliente">
+                <input type="hidden" id="edit-cliente-id">
+                <label for="edit-cliente-nome">Nome:</label>
+                <input type="text" id="edit-cliente-nome" placeholder="Nome do Cliente" required>
+                <label for="edit-cliente-telefone">Telefone:</label>
+                <input type="text" id="edit-cliente-telefone" placeholder="Telefone">
+                <label for="edit-cliente-cpf">CPF:</label>
+                <input type="text" id="edit-cliente-cpf" placeholder="CPF">
+                <label for="edit-cliente-endereco">Endereço:</label>
+                <input type="text" id="edit-cliente-endereco" placeholder="Endereço">
+                <label for="edit-cliente-observacoes">Observações:</label>
+                <textarea id="edit-cliente-observacoes" placeholder="Observações..."></textarea>
+                <button type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Empréstimo -->
+    <div id="modal-editar-emprestimo" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Empréstimo</h2>
+            <form id="form-editar-emprestimo">
+                <input type="hidden" id="edit-emprestimo-id">
+                <label for="edit-emprestimo-cliente">Cliente</label>
+                <select id="edit-emprestimo-cliente" required></select>
+                <label for="edit-emprestimo-descricao">Descrição</label>
+                <input type="text" id="edit-emprestimo-descricao" required>
+                <label for="edit-emprestimo-valor">Valor Principal (R$)</label>
+                <input type="number" id="edit-emprestimo-valor" step="0.01" required>
+                <label for="edit-emprestimo-vencimento">Data de Vencimento</label>
+                <input type="date" id="edit-emprestimo-vencimento" required>
+                <label for="edit-emprestimo-juros">Juros do Empréstimo (%):</label>
+                <input type="number" id="edit-emprestimo-juros" step="0.1">
+                <label for="edit-emprestimo-juros-diario">Juros Diário por Atraso (%):</label>
+                <input type="number" id="edit-emprestimo-juros-diario" step="0.1">
+                <button type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-pagar-despesa" class="modal">
+        <div class="modal-content modal-pagamento">
+            <span class="close-button" id="fechar-modal-pagamento">&times;</span>
+            <h2>Registrar pagamento</h2>
+            <p>Selecione como esta conta foi paga.</p>
+            <form id="form-pagar-despesa">
+                <select id="forma-pagamento" required>
+                    <option value="">Selecione a forma de pagamento</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão de débito">Cartão de débito</option>
+                    <option value="Cartão de crédito">Cartão de crédito</option>
+                    <option value="Transferência bancária">Transferência bancária</option>
+                    <option value="Boleto">Boleto</option>
+                </select>
+                <button type="submit"><i class="fas fa-check"></i> Confirmar pagamento</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Adicionando a biblioteca de gráficos Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
